@@ -1,8 +1,11 @@
 import { Text } from "react-native";
 import { Button, Card, TextInput } from "react-native-paper";
 import { StyleSheet } from 'react-native';
+import { useState } from "react";
 
-export default function Login() {
+export default function Login({navigation}) {
+    const [name, setName] = useState('');
+    
     return (
         <Card style={styles.boxLogin}>
             <Text style={styles.boxLoginTitle}>
@@ -12,9 +15,15 @@ export default function Login() {
             <TextInput 
                 label="Informe seu nome" 
                 style={styles.boxLoginInput} 
+                value={name}
+                onChangeText={setName}
             />
             
-            <Button mode="contained">
+            <Button 
+                mode="contained" 
+                disabled={name.trim() === ''}
+                onPress={() => navigation.navigate('Chat', { name })}
+            >
                 Entrar
             </Button>
         </Card>
